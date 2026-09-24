@@ -1,0 +1,7 @@
+id,nombre,email,rol,activo
+1,Ana Garcia,ana.garcia@example.com,admin,true
+2,Luis Perez,luis.perez@example.com,editor,false
+3,Marta Ruiz,marta.ruiz@example.com,viewer,true
+4,,carlos@example.com,editor,true
+5,Elena Sosa,no-es-un-email,admin,true
+6,Jorge Diaz,jorge.diaz@example.com,viewer,tal-vez

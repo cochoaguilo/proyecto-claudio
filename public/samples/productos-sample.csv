@@ -1,0 +1,7 @@
+id,nombre,categoria,precio,stock
+1,Teclado mecanico,Perifericos,49.99,120
+2,Monitor 27,Pantallas,229.50,35
+3,Mouse inalambrico,Perifericos,19.99,200
+4,Silla ergonomica,Mobiliario,-15.00,10
+5,Cable HDMI,Cables,4.5,abc
+6,,Cables,9.99,50
