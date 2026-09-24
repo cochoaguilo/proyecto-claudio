@@ -6,6 +6,7 @@ Last updated: 2026-09-24
 
 ## Sources scanned
 
+- .claude\skills
 - C:\Users\marco\.agents\skills
 - C:\Users\marco\.config\opencode\skills
 - C:\Users\marco\.claude\skills
@@ -22,20 +23,20 @@ Last updated: 2026-09-24
 | Skill | Trigger / description | Scope | Path |
 | --- | --- | --- | --- |
 | `branch-pr` | Create Gentle AI pull requests with issue-first checks. Trigger: creating, opening, or preparing PRs for review. | user | `C:\Users\marco\.agents\skills\branch-pr\SKILL.md` |
-| `chained-pr` | Trigger: PRs over 400 lines, stacked PRs, review slices. Split oversized changes into chained PRs that protect review focus. | user | `C:\Users\marco\.agents\skills\chained-pr\SKILL.md` |
-| `cognitive-doc-design` | Design docs that reduce cognitive load. Trigger: writing guides, READMEs, RFCs, onboarding, architecture, or review-facing docs. | user | `C:\Users\marco\.agents\skills\cognitive-doc-design\SKILL.md` |
+| `chained-pr` | Trigger: PRs over 400 lines, stacked PRs, review slices. Split oversized changes into chained PRs that protect review focus. | project | `C:\Users\marco\Proyecto Claudio\.claude\skills\chained-pr\SKILL.md` |
+| `cognitive-doc-design` | Design docs that reduce cognitive load. Trigger: writing guides, READMEs, RFCs, onboarding, architecture, or review-facing docs. | project | `C:\Users\marco\Proyecto Claudio\.claude\skills\cognitive-doc-design\SKILL.md` |
 | `comment-writer` | Write warm, direct collaboration comments. Trigger: PR feedback, issue replies, reviews, Slack messages, or GitHub comments. | user | `C:\Users\marco\.agents\skills\comment-writer\SKILL.md` |
 | `find-skills` | Helps users discover and install agent skills when they ask questions like "how do I do X", "find a skill for X", "is there a skill that can...", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill. | user | `C:\Users\marco\.agents\skills\find-skills\SKILL.md` |
 | `gentle-ai-bench` | Trigger: bench, journey, journeys, driven mode, gentle-ai-bench, journey corpus, j-numbers, bench axis. Author and verify gentle-ai bench journeys; go test ./bench never proves driven execution. | user | `C:\Users\marco\.agents\skills\gentle-ai-bench\SKILL.md` |
-| `go-testing` | Trigger: Go tests, go test coverage, Bubbletea teatest, golden files. Apply focused Go testing patterns. | user | `C:\Users\marco\.agents\skills\go-testing\SKILL.md` |
+| `go-testing` | Trigger: Go tests, go test coverage, Bubbletea teatest, golden files. Apply focused Go testing patterns. | project | `C:\Users\marco\Proyecto Claudio\.claude\skills\go-testing\SKILL.md` |
 | `issue-creation` | Trigger: issue creation, bug reports, feature requests, or issue approval. Create and triage GitHub issues from repository evidence. | user | `C:\Users\marco\.agents\skills\issue-creation\SKILL.md` |
-| `judgment-day` | Trigger: judgment day, dual review, adversarial review, juzgar. Run explicit blind dual review with at most two scoped fix/re-judgment rounds. | user | `C:\Users\marco\.agents\skills\judgment-day\SKILL.md` |
+| `judgment-day` | Trigger: judgment day, dual review, adversarial review, juzgar. Run explicit blind dual review with at most two scoped fix/re-judgment rounds. | project | `C:\Users\marco\Proyecto Claudio\.claude\skills\judgment-day\SKILL.md` |
 | `rdd-defect-workflow` | Trigger: RDD, receipt-driven development, review authority, receipt/lineage, correction/recovery, delivery gate/kill switch, bounded review defects. Guide work. | user | `C:\Users\marco\.agents\skills\rdd-defect-workflow\SKILL.md` |
-| `skill-creator` | Trigger: new skills, agent instructions, documenting AI usage patterns. Create LLM-first skills with valid frontmatter. | user | `C:\Users\marco\.agents\skills\skill-creator\SKILL.md` |
-| `skill-improver` | Trigger: improve skills, audit skills, refactor skills, skill quality. Audit and upgrade existing LLM-first skills. | user | `C:\Users\marco\.agents\skills\skill-improver\SKILL.md` |
+| `skill-creator` | Trigger: new skills, agent instructions, documenting AI usage patterns. Create LLM-first skills with valid frontmatter. | project | `C:\Users\marco\Proyecto Claudio\.claude\skills\skill-creator\SKILL.md` |
+| `skill-improver` | Trigger: improve skills, audit skills, refactor skills, skill quality. Audit and upgrade existing LLM-first skills. | project | `C:\Users\marco\Proyecto Claudio\.claude\skills\skill-improver\SKILL.md` |
 | `systemic-issue-triage` | Trigger: new issue, bug report, triage, backlog, issue flood, community report, root cause, dead-end, blocked user. Attack issues by root class, never one-by-one; fixes must shrink the system, not grow it. | user | `C:\Users\marco\.agents\skills\systemic-issue-triage\SKILL.md` |
 | `ui-ux-pro-max` | UI/UX design intelligence for web, mobile, and desktop. This skill should be used when designing, building, reviewing, or fixing interfaces, including pages, components, design systems, accessibility, interaction, responsive layout, typography, color, charts, and stack-specific UI implementation. Searchable local data: 79 searchable styles (50 active), 192 product palettes and reasoning profiles, 74 font pairings, 119 UX guidelines, 105 icons, 17 GSAP presets, 25 chart types, and 22 stacks. | user | `C:\Users\marco\.agents\skills\ui-ux-pro-max\SKILL.md` |
-| `work-unit-commits` | Plan commits as reviewable work units. Trigger: implementation, commit splitting, chained PRs, or keeping tests and docs with code. | user | `C:\Users\marco\.agents\skills\work-unit-commits\SKILL.md` |
+| `work-unit-commits` | Plan commits as reviewable work units. Trigger: implementation, commit splitting, chained PRs, or keeping tests and docs with code. | project | `C:\Users\marco\Proyecto Claudio\.claude\skills\work-unit-commits\SKILL.md` |
 
 ## Loading protocol
 
