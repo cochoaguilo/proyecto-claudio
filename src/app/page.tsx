@@ -24,6 +24,9 @@ export default function Home() {
         <Button asChild variant="outline">
           <Link href="/transactions">Transactions</Link>
         </Button>
+        <Button asChild variant="outline">
+          <Link href="/quote">Quote</Link>
+        </Button>
       </div>
     </div>
   );
