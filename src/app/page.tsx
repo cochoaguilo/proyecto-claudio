@@ -21,6 +21,9 @@ export default function Home() {
         <Button asChild variant="outline">
           <Link href="/productos">Productos</Link>
         </Button>
+        <Button asChild variant="outline">
+          <Link href="/transactions">Transactions</Link>
+        </Button>
       </div>
     </div>
   );
