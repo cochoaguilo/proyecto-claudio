@@ -1,3 +1,7 @@
+# proyecto-claudio
+
+Proyecto de analisis financiero de acciones, bonos, etc.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
