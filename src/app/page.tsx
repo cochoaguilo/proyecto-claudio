@@ -16,12 +16,6 @@ export default function Home() {
       </div>
       <div className="flex flex-col gap-3 sm:flex-row">
         <Button asChild>
-          <Link href="/usuarios">Usuarios</Link>
-        </Button>
-        <Button asChild variant="outline">
-          <Link href="/productos">Productos</Link>
-        </Button>
-        <Button asChild variant="outline">
           <Link href="/transactions">Transactions</Link>
         </Button>
         <Button asChild variant="outline">
