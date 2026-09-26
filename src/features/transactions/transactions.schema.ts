@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const transactionSchema = z.object({
   codigo: z.string().min(1),
-  strategy: z.string().min(1),
+  strategy: z.string().optional(),
   entryPrice: z.coerce.number(),
   aux: z.string().optional(),
   uniqueKey: z.string().min(1),
