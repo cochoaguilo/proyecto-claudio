@@ -10,9 +10,13 @@ import { remapHeaders } from "@/lib/csv/remap-headers";
 import { validateRows, type InvalidRow } from "@/lib/csv/validate-rows";
 import {
   positionSchema,
-  POSITION_HEADER_MAP,
   type Position,
 } from "@/features/positions/positions.schema";
+import {
+  RAW_POSITION_HEADER_MAP,
+  type RawPositionRow,
+} from "@/features/positions/raw-position";
+import { PositionCsvAdapter } from "@/features/positions/position-csv.adapter";
 import { positionsColumns } from "@/features/positions/positions.columns";
 
 export function PositionsContainer() {
@@ -23,11 +27,15 @@ export function PositionsContainer() {
   async function handleFile(file: File) {
     setIsParsing(true);
     try {
-      const { data: rawRows } = await parseCsvFile(file);
-      const remappedRows = remapHeaders(rawRows, POSITION_HEADER_MAP);
+      const { data: rawRows } = await parseCsvFile(file, 6, 11);
+      const remappedRows = remapHeaders(
+        rawRows,
+        RAW_POSITION_HEADER_MAP
+      ) as RawPositionRow[];
+      const draftRows = new PositionCsvAdapter().adapt(remappedRows);
       const { validRows, invalidRows } = validateRows(
         positionSchema,
-        remappedRows
+        draftRows as unknown as Record<string, unknown>[]
       );
       setData(validRows);
       setInvalidRows(invalidRows);

@@ -67,3 +67,6 @@ Risk: medium (343 changed lines, 9 files). Lens `review-reliability` ran, result
 
 ## Delivery strategy
 Single PR / single commit at task close (small-to-medium change, well under the ~400 line heuristic). Feature branch already active: `feat/tanstack-tables-csv-scaffold`.
+
+## Commit evidence
+`7e22dfc` — `feat(transactions): add CSV adapter to replace Apps Script transform` on `feat/tanstack-tables-csv-scaffold`.

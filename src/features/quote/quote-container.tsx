@@ -8,11 +8,12 @@ import { CsvUploader } from "@/components/data-table/csv-uploader";
 import { parseCsvFile } from "@/lib/csv/parse-csv";
 import { remapHeaders } from "@/lib/csv/remap-headers";
 import { validateRows, type InvalidRow } from "@/lib/csv/validate-rows";
+import { quoteSchema, type Quote } from "@/features/quote/quote.schema";
 import {
-  quoteSchema,
-  QUOTE_HEADER_MAP,
-  type Quote,
-} from "@/features/quote/quote.schema";
+  RAW_QUOTE_HEADER_MAP,
+  type RawQuoteRow,
+} from "@/features/quote/raw-quote";
+import { QuoteCsvAdapter } from "@/features/quote/quote-csv.adapter";
 import { quoteColumns } from "@/features/quote/quote.columns";
 
 export function QuoteContainer() {
@@ -23,11 +24,15 @@ export function QuoteContainer() {
   async function handleFile(file: File) {
     setIsParsing(true);
     try {
-      const { data: rawRows } = await parseCsvFile(file);
-      const remappedRows = remapHeaders(rawRows, QUOTE_HEADER_MAP);
+      const { data: rawRows } = await parseCsvFile(file, 3);
+      const remappedRows = remapHeaders(
+        rawRows,
+        RAW_QUOTE_HEADER_MAP
+      ) as RawQuoteRow[];
+      const draftRows = new QuoteCsvAdapter().adapt(remappedRows);
       const { validRows, invalidRows } = validateRows(
         quoteSchema,
-        remappedRows
+        draftRows as unknown as Record<string, unknown>[]
       );
       setData(validRows);
       setInvalidRows(invalidRows);
