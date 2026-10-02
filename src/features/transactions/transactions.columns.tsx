@@ -30,55 +30,6 @@ export const transactionsColumns: ColumnDef<Transaction>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "codigo",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Codigo" />
-    ),
-  },
-  {
-    accessorKey: "strategy",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Strategy" />
-    ),
-  },
-  {
-    accessorKey: "entryPrice",
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title="Entry Price"
-        className="justify-end"
-      />
-    ),
-    cell: ({ row }) => (
-      <div className="text-right">{row.original.entryPrice.toFixed(2)}</div>
-    ),
-  },
-  {
-    accessorKey: "aux",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Aux" />
-    ),
-  },
-  {
-    accessorKey: "uniqueKey",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="UniqueKey" />
-    ),
-  },
-  {
-    accessorKey: "symbol",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Symbol" />
-    ),
-  },
-  {
-    accessorKey: "instrument",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Instrument" />
-    ),
-  },
-  {
     accessorKey: "date",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Date" />
@@ -88,6 +39,12 @@ export const transactionsColumns: ColumnDef<Transaction>[] = [
     accessorKey: "action",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Action" />
+    ),
+  },
+  {
+    accessorKey: "symbol",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Symbol" />
     ),
   },
   {
@@ -146,12 +103,6 @@ export const transactionsColumns: ColumnDef<Transaction>[] = [
     ),
     cell: ({ row }) => (
       <div className="text-right">{row.original.amount.toFixed(2)}</div>
-    ),
-  },
-  {
-    accessorKey: "positionStatus",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Position Status" />
     ),
   },
 ];
