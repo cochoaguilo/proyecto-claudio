@@ -1,0 +1,6 @@
+Codigo,Strategy,Entry Price,Aux,UniqueKey,Symbol,Instrument,Date,Action,Description,Quantity,Price,Fees & Comm,Amount,Position Status
+TX001,Covered Call,150.25,,AAPL-2026-01-15-001,AAPL,Stock,1/15/2026,BUY TO OPEN,Apple Inc,100,150.25,1.00,-15026.00,Open
+TX002,Iron Condor,3.50,,SPY-2026-01-16-002,SPY,Option,1/16/2026,SELL TO OPEN,SPDR S&P 500 ETF,5,3.50,0.65,1749.35,Open
+TX003,Covered Call,150.25,,AAPL-2026-02-01-003,AAPL,Stock,2/1/2026,SELL TO CLOSE,Apple Inc,100,158.10,1.00,15809.00,Closed
+TX004,Swing Trade,,,,MSFT,Stock,1/20/2026,BUY TO OPEN,Microsoft Corp,abc,410.00,1.00,-41001.00,Open
+,Swing Trade,412.00,,MSFT-2026-01-25-005,MSFT,Stock,1/25/2026,SELL TO CLOSE,Microsoft Corp,50,412.00,1.00,20599.00,Closed
