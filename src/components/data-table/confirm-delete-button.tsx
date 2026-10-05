@@ -15,18 +15,23 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 
-interface DataTableDeleteRowsProps {
-  count: number;
+interface ConfirmDeleteButtonProps {
+  triggerLabel: string;
+  title: string;
+  description: string;
+  disabled?: boolean;
   onConfirm: () => void;
 }
 
-/** Deletes the selected rows only after the user confirms in a dialog. */
-export function DataTableDeleteRows({
-  count,
+/** Destructive action that runs only after the user confirms in a dialog. */
+export function ConfirmDeleteButton({
+  triggerLabel,
+  title,
+  description,
+  disabled = false,
   onConfirm,
-}: DataTableDeleteRowsProps) {
+}: ConfirmDeleteButtonProps) {
   const [open, setOpen] = React.useState(false);
-  const rowsLabel = count === 1 ? "1 fila" : `${count} filas`;
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
@@ -35,18 +40,15 @@ export function DataTableDeleteRows({
           variant="destructive"
           size="sm"
           className="h-8"
-          disabled={count === 0}
+          disabled={disabled}
         >
-          Eliminar seleccionadas
+          {triggerLabel}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>¿Eliminar {rowsLabel}?</AlertDialogTitle>
-          <AlertDialogDescription>
-            Esta acción no se puede deshacer. Si vuelves a subir el mismo CSV,
-            las filas regresarán.
-          </AlertDialogDescription>
+          <AlertDialogTitle>{title}</AlertDialogTitle>
+          <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancelar</AlertDialogCancel>

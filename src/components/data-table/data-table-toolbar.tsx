@@ -5,7 +5,7 @@ import type { Table } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { DataTableDeleteRows } from "@/components/data-table/data-table-delete-rows";
+import { ConfirmDeleteButton } from "@/components/data-table/confirm-delete-button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -45,8 +45,11 @@ export function DataTableToolbar<TData>({
           <Badge variant="secondary">{selectedCount} seleccionadas</Badge>
         )}
         {onDeleteRows && (
-          <DataTableDeleteRows
-            count={selectedCount}
+          <ConfirmDeleteButton
+            triggerLabel="Eliminar seleccionadas"
+            title={`¿Eliminar ${selectedCount === 1 ? "1 fila" : `${selectedCount} filas`}?`}
+            description="Esta acción no se puede deshacer. Si vuelves a subir el mismo CSV, las filas regresarán."
+            disabled={selectedCount === 0}
             onConfirm={handleDeleteSelected}
           />
         )}

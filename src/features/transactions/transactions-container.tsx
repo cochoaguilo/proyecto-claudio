@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 import { DataTable } from "@/components/data-table/data-table";
+import { ConfirmDeleteButton } from "@/components/data-table/confirm-delete-button";
 import { CsvUploader } from "@/components/data-table/csv-uploader";
 import { parseCsvText } from "@/lib/csv/parse-csv";
 import { remapHeaders } from "@/lib/csv/remap-headers";
@@ -61,6 +62,7 @@ const storedRawRowSchema = z.object({
   price: z.string(),
   feesComm: z.string(),
   amount: z.string(),
+  batch: z.number().int().optional(),
 });
 
 const parseStoredRawRows = (value: unknown) =>
@@ -85,11 +87,16 @@ function countByContent(rows: RawTransactionRow[]): Map<string, number> {
  * already hold as many identical rows, so re-uploading the same file adds
  * nothing while a file with repeated identical rows keeps all of them.
  */
+function latestBatch(rows: StoredRawTransactionRow[]): number {
+  return Math.max(0, ...rows.map((row) => row.batch ?? 0));
+}
+
 function mergeRawRows(
   stored: StoredRawTransactionRow[],
   incoming: RawTransactionRow[]
 ): StoredRawTransactionRow[] {
   const storedCounts = countByContent(stored);
+  const batch = latestBatch(stored) + 1;
   const seenInUpload = new Map<string, number>();
   const additions: StoredRawTransactionRow[] = [];
 
@@ -99,7 +106,7 @@ function mergeRawRows(
     seenInUpload.set(key, occurrence);
 
     if (occurrence > (storedCounts.get(key) ?? 0)) {
-      additions.push({ ...row, sourceId: crypto.randomUUID() });
+      additions.push({ ...row, sourceId: crypto.randomUUID(), batch });
     }
   }
 
@@ -162,6 +169,22 @@ export function TransactionsContainer() {
     setRawRows((stored) => stored.filter((row) => !sourceIds.has(row.sourceId)));
   }
 
+  function handleDeleteLastUpload() {
+    const batch = latestBatch(rawRows);
+    if (batch === 0) return;
+    const remaining = rawRows.filter((row) => (row.batch ?? 0) !== batch);
+    const removed = rawRows.length - remaining.length;
+    setRawRows(remaining);
+    toast(`${removed} filas de la última carga eliminadas`);
+  }
+
+  const lastUploadCount = React.useMemo(() => {
+    const batch = latestBatch(rawRows);
+    return batch === 0
+      ? 0
+      : rawRows.filter((row) => row.batch === batch).length;
+  }, [rawRows]);
+
   function handleCellEdit(rowIndex: number, columnId: string, value: unknown) {
     const uniqueKey = data[rowIndex]?.uniqueKey;
     if (!uniqueKey || !MANUAL_EDIT_COLUMNS.has(columnId)) return;
@@ -179,6 +202,13 @@ export function TransactionsContainer() {
         onFileSelected={handleFile}
         invalidRows={invalidRows}
         isLoading={isParsing}
+      />
+      <ConfirmDeleteButton
+        triggerLabel="Eliminar última carga"
+        title={`¿Eliminar la última carga (${lastUploadCount} filas)?`}
+        description="Se borran las filas agregadas en la carga más reciente. Esta acción no se puede deshacer."
+        disabled={lastUploadCount === 0}
+        onConfirm={handleDeleteLastUpload}
       />
       <DataTable
         columns={transactionsColumns}
