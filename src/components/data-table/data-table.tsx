@@ -28,6 +28,7 @@ import { DataTableToolbar } from "@/components/data-table/data-table-toolbar";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  onCellEdit?: (rowIndex: number, columnId: string, value: unknown) => void;
 }
 
 /**
@@ -38,6 +39,7 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
   columns,
   data,
+  onCellEdit,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -68,6 +70,9 @@ export function DataTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     enableRowSelection: true,
+    // Editing a cell replaces `data`; keep the user on the current page.
+    autoResetPageIndex: false,
+    meta: { updateData: onCellEdit },
   });
 
   return (

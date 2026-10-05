@@ -39,3 +39,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+#md files
+.agents
+
+# local data exports (financial data, not for the repo)
+/Copia de PositionStatement.csv
+/Individual_XXX784_Transactions_*.csv
+
+# Google Apps Script sources (copied locally, not part of the app)
+/position_sheet.txt
+/quote_sheet.txt
+/transaction_sheet.txt

@@ -2,7 +2,7 @@ import type { ZodType } from "zod";
 
 export interface InvalidRow {
   rowIndex: number;
-  raw: Record<string, string>;
+  raw: Record<string, unknown>;
   issues: string[];
 }
 
@@ -18,7 +18,7 @@ export interface ValidateRowsResult<T> {
  */
 export function validateRows<T>(
   schema: ZodType<T>,
-  rows: Record<string, string>[]
+  rows: Record<string, unknown>[]
 ): ValidateRowsResult<T> {
   const validRows: T[] = [];
   const invalidRows: InvalidRow[] = [];
