@@ -5,6 +5,7 @@ import type { Table } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { DataTableDeleteRows } from "@/components/data-table/data-table-delete-rows";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -14,12 +15,22 @@ import {
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
+  onDeleteRows?: (rows: TData[]) => void;
 }
 
 export function DataTableToolbar<TData>({
   table,
+  onDeleteRows,
 }: DataTableToolbarProps<TData>) {
-  const selectedCount = table.getFilteredSelectedRowModel().rows.length;
+  const selectedRows = table
+    .getFilteredSelectedRowModel()
+    .rows.map((row) => row.original);
+  const selectedCount = selectedRows.length;
+
+  function handleDeleteSelected() {
+    onDeleteRows?.(selectedRows);
+    table.resetRowSelection();
+  }
 
   return (
     <div className="flex items-center justify-between gap-2">
@@ -32,6 +43,12 @@ export function DataTableToolbar<TData>({
         />
         {selectedCount > 0 && (
           <Badge variant="secondary">{selectedCount} seleccionadas</Badge>
+        )}
+        {onDeleteRows && selectedCount > 0 && (
+          <DataTableDeleteRows
+            count={selectedCount}
+            onConfirm={handleDeleteSelected}
+          />
         )}
       </div>
       <DropdownMenu>
