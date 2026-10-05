@@ -44,7 +44,7 @@ export function DataTableToolbar<TData>({
         {selectedCount > 0 && (
           <Badge variant="secondary">{selectedCount} seleccionadas</Badge>
         )}
-        {onDeleteRows && selectedCount > 0 && (
+        {onDeleteRows && (
           <DataTableDeleteRows
             count={selectedCount}
             onConfirm={handleDeleteSelected}

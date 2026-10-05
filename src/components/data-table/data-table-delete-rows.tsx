@@ -31,7 +31,12 @@ export function DataTableDeleteRows({
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive" size="sm" className="h-8">
+        <Button
+          variant="destructive"
+          size="sm"
+          className="h-8"
+          disabled={count === 0}
+        >
           Eliminar seleccionadas
         </Button>
       </AlertDialogTrigger>
