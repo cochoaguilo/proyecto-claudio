@@ -48,6 +48,22 @@ export function parseCsvFile(
   });
 }
 
+/** Parses CSV text already in memory, e.g. after normalizing it. Same header rules as parseCsvFile. */
+export function parseCsvText(text: string): Promise<ParseCsvResult> {
+  return new Promise((resolve, reject) => {
+    Papa.parse<Record<string, string>>(text, {
+      header: true,
+      skipEmptyLines: true,
+      complete: (results) => {
+        resolve({ data: results.data, errors: results.errors });
+      },
+      error: (error: Error) => {
+        reject(error);
+      },
+    });
+  });
+}
+
 async function parseCsvFileWithTrailingTrim(
   file: File,
   skipLines: number,

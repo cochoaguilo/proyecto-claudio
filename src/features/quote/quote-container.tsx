@@ -2,12 +2,14 @@
 
 import * as React from "react";
 import { toast } from "sonner";
+import { z } from "zod";
 
 import { DataTable } from "@/components/data-table/data-table";
 import { CsvUploader } from "@/components/data-table/csv-uploader";
 import { parseCsvFile } from "@/lib/csv/parse-csv";
 import { remapHeaders } from "@/lib/csv/remap-headers";
 import { validateRows, type InvalidRow } from "@/lib/csv/validate-rows";
+import { usePersistedState } from "@/lib/storage/use-persisted-state";
 import { quoteSchema, type Quote } from "@/features/quote/quote.schema";
 import {
   RAW_QUOTE_HEADER_MAP,
@@ -16,8 +18,15 @@ import {
 import { QuoteCsvAdapter } from "@/features/quote/quote-csv.adapter";
 import { quoteColumns } from "@/features/quote/quote.columns";
 
+const STORAGE_KEY = "quote:rows";
+const parseStoredRows = (value: unknown) => z.array(quoteSchema).parse(value);
+
 export function QuoteContainer() {
-  const [data, setData] = React.useState<Quote[]>([]);
+  const [data, setData] = usePersistedState<Quote[]>(
+    STORAGE_KEY,
+    [],
+    parseStoredRows
+  );
   const [invalidRows, setInvalidRows] = React.useState<InvalidRow[]>([]);
   const [isParsing, setIsParsing] = React.useState(false);
 

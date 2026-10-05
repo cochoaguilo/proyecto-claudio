@@ -4,6 +4,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { DataTableColumnHeader } from "@/components/data-table/data-table-column-header";
+import { DataTableEditableCell } from "@/components/data-table/data-table-editable-cell";
 import type { Transaction } from "@/features/transactions/transactions.schema";
 
 export const transactionsColumns: ColumnDef<Transaction>[] = [
@@ -40,6 +41,7 @@ export const transactionsColumns: ColumnDef<Transaction>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Strategy" />
     ),
+    cell: (context) => <DataTableEditableCell {...context} />,
   },
   {
     accessorKey: "entryPrice",
@@ -50,15 +52,14 @@ export const transactionsColumns: ColumnDef<Transaction>[] = [
         className="justify-end"
       />
     ),
-    cell: ({ row }) => (
-      <div className="text-right">{row.original.entryPrice.toFixed(2)}</div>
-    ),
+    cell: (context) => <DataTableEditableCell {...context} type="number" />,
   },
   {
     accessorKey: "aux",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Aux" />
     ),
+    cell: (context) => <DataTableEditableCell {...context} />,
   },
   {
     accessorKey: "uniqueKey",
