@@ -55,13 +55,6 @@ export const transactionsColumns: ColumnDef<Transaction>[] = [
     cell: (context) => <DataTableEditableCell {...context} type="number" />,
   },
   {
-    accessorKey: "aux",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Aux" />
-    ),
-    cell: (context) => <DataTableEditableCell {...context} />,
-  },
-  {
     accessorKey: "uniqueKey",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="UniqueKey" />

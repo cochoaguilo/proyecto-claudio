@@ -1,5 +1,5 @@
 import type { CsvAdapter } from "@/lib/csv/csv-adapter";
-import type { RawTransactionRow } from "./raw-transaction";
+import type { StoredRawTransactionRow } from "./raw-transaction";
 import {
   classifyNetAction,
   isOpeningAction,
@@ -9,10 +9,10 @@ import {
 } from "./transaction-parsing";
 
 export interface TransactionDraft {
+  sourceId: string;
   codigo: string;
   strategy: string;
   entryPrice: number;
-  aux: string;
   uniqueKey: string;
   symbol: string;
   instrument: string;
@@ -27,6 +27,7 @@ export interface TransactionDraft {
 }
 
 interface ParsedRow {
+  sourceId: string;
   uniqueKey: string;
   symbol: string;
   instrument: string;
@@ -44,9 +45,9 @@ interface ParsedRow {
 }
 
 export class TransactionCsvAdapter
-  implements CsvAdapter<RawTransactionRow, TransactionDraft>
+  implements CsvAdapter<StoredRawTransactionRow, TransactionDraft>
 {
-  adapt(rawRows: RawTransactionRow[]): TransactionDraft[] {
+  adapt(rawRows: StoredRawTransactionRow[]): TransactionDraft[] {
     const parsedRows = rawRows.map((row) => this.parseRow(row));
 
     parsedRows.sort(
@@ -57,10 +58,10 @@ export class TransactionCsvAdapter
     this.seedEntryPriceAndStrategy(parsedRows);
 
     return parsedRows.map((row) => ({
+      sourceId: row.sourceId,
       codigo: row.codigo,
       strategy: row.strategy,
       entryPrice: row.entryPrice,
-      aux: "",
       uniqueKey: row.uniqueKey,
       symbol: row.symbol,
       instrument: row.instrument,
@@ -75,7 +76,7 @@ export class TransactionCsvAdapter
     }));
   }
 
-  private parseRow(row: RawTransactionRow): ParsedRow {
+  private parseRow(row: StoredRawTransactionRow): ParsedRow {
     // An unparseable date or empty symbol yields "", which the zod schema
     // (both require non-empty) then surfaces as an invalidRow instead of
     // this row disappearing with no reported error.
@@ -84,6 +85,7 @@ export class TransactionCsvAdapter
     const quantity = Math.abs(parseFloat(row.quantity)) || 0;
 
     return {
+      sourceId: row.sourceId,
       uniqueKey,
       symbol,
       instrument,

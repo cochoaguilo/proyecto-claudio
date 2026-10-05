@@ -28,7 +28,10 @@ import { DataTableToolbar } from "@/components/data-table/data-table-toolbar";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  /** Stable row identity, so selection survives data changes. Defaults to index. */
+  getRowId?: (row: TData) => string;
   onCellEdit?: (rowIndex: number, columnId: string, value: unknown) => void;
+  onDeleteRows?: (rows: TData[]) => void;
 }
 
 /**
@@ -39,7 +42,9 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
   columns,
   data,
+  getRowId,
   onCellEdit,
+  onDeleteRows,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -70,6 +75,9 @@ export function DataTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     enableRowSelection: true,
+    getRowId: getRowId
+      ? (row) => getRowId(row)
+      : (_row, index) => String(index),
     // Editing a cell replaces `data`; keep the user on the current page.
     autoResetPageIndex: false,
     meta: { updateData: onCellEdit },
@@ -77,7 +85,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <DataTableToolbar table={table} />
+      <DataTableToolbar table={table} onDeleteRows={onDeleteRows} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>

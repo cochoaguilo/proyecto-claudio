@@ -9,6 +9,13 @@ export interface RawTransactionRow {
   amount: string;
 }
 
+/** A raw row as persisted: stable identity assigned at upload time. */
+export interface StoredRawTransactionRow extends RawTransactionRow {
+  sourceId: string;
+  /** Upload sequence number; absent on rows stored before batches existed. */
+  batch?: number;
+}
+
 export const RAW_TRANSACTION_HEADER_MAP: Record<string, keyof RawTransactionRow> = {
   Date: "date",
   Action: "action",
